@@ -1,7 +1,8 @@
-import express, { Application } from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db';
+import 'express-async-errors';
 
 import userRouter from './modules/auth/auth.routes';
 
@@ -15,6 +16,12 @@ app.use(express.json());
 
 /** All API Routes */
 app.use('/api/v1/auth', userRouter);
+
+app.use((error: any, req: Request, res: Response, next: NextFunction) => {
+    console.log(error)
+    res.status(500).json({ error: error.message });
+});
+  
 
 const startServer = (port: string | number) => {
     try {
