@@ -60,7 +60,7 @@ const requestResetPassword = async ( email: string ) => {
         const link = `${clientURL}/reset-password?token=${resetToken}&id=${query._id}`;
         console.log(link);
         
-        sendEmail(
+        await sendEmail(
             query.email,
             "Password Reset",
             {
